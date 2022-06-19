@@ -8,6 +8,7 @@ export LFS_TGT=x86_64_lfs-linux-gnu
 export LFS_DISK=/dev/sda
 
 # check if $LFS is not mounted
+# Chapter 2
 if ! grep -q "$LFS" /proc/mounts; then
     source setupdisk.sh "$LFS_DISK"
     sudo mount "${LFS_DISK}2" "$LFS"
@@ -29,6 +30,7 @@ case $(uname -m) in
     x86_64) mkdir -pv $LFS/lib64 ;;
 esac
 
+# Chapter 3
 # copy scripts and packages.csv to sources dir in LFS
 cp -rf *.sh packages.csv "$LFS/sources"
 
@@ -37,4 +39,5 @@ cd "$LFS/sources"
 # append tools/bin to path
 export PATH="$LFS/tools/bin:$PATH"
 
+# Execute download packages listed in packages.csv
 source download.sh
